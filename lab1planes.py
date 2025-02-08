@@ -27,13 +27,13 @@ def process_planes():
        
         
         if repair_status == "Yes":
-            if not hangar.size() >= HANGAR_SIZE:
+            if hangar.size() < HANGAR_SIZE:
                 hangar.push(name)
             else:
                 clear_runway()
                 hangar_to_runway()
                 hangar.push(name)
-        elif repair_status == "No" and not hangar.size() >= HANGAR_SIZE:
+        elif repair_status == "No" and hangar.size() < HANGAR_SIZE:
             waiting_runway.enqueue(name)
         else:
             clear_runway()
@@ -52,7 +52,7 @@ def clear_runway() -> None:
 
 def hangar_to_runway() -> None:
     while hangar.size() > 0:
-        if not waiting_runway.size() >= RUNWAY_LENGTH:
+        if  waiting_runway.size() < RUNWAY_LENGTH:
             waiting_runway.enqueue(hangar.pop())
         else:
             clear_runway()
